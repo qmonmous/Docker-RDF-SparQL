@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  sparql:
+    build: images/fuseki
+    volumes:
+      - fuseki_data:/fuseki/databases
+    environment:
+      - ADMIN_PASSWORD=bolobolo
+    ports:
+      - "3030:3030"
+  notebook:
+    build: images/jupyter-sparql
+    volumes:
+      - ./notebooks:/home/jovyan/work
+    ports:
+      - "8888:8888"
+    # password: bolobolo
+    command: start-notebook.sh --NotebookApp.base_url=/ --NotebookApp.password='sha1:8210ddb703a5:2711f1236a4ca4f096eb3530125d77893b5ff926'
+volumes:
+  fuseki_data:
+  jupyter_data:
